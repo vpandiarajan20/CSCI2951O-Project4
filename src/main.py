@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from model_timer import Timer
 from ipinstance import IPInstance
+import math
 
 def main(filepath : str):
 	
@@ -18,7 +19,7 @@ def main(filepath : str):
 	sol_dict ={
 		"Instance" : filename,
 		"Time" : str(watch.getElapsed()),
-		"Result" : f"{solver.objVal}",
+		"Result" : f"{math.ceil(solver.objVal)}",
 		"Solution" : "OPT" if solver.objVal != None else "ERR"
 	}
 	print(json.dumps(sol_dict))	
