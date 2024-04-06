@@ -18,7 +18,7 @@ def main(filepath : str):
 
 	sol_dict ={
 		"Instance" : filename,
-		"Time" : str(watch.getElapsed()),
+		"Time" : str(round(watch.getElapsed(), 2)),
 		"Result" : f"{int(round(solver.objVal))}",
 		"Solution" : "OPT" if solver.objVal != None else "ERR"
 	}
