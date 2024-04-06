@@ -51,7 +51,7 @@ class IPInstance:
     self.A = A
     self.model = Model() #CPLEX solver
     self.difference_matrix = self.create_difference_matrix()
-    self.objVal = self.solve()
+    self.objVal, self.solution = self.solve()
   
   def create_difference_matrix(self):
     difference_matrix = np.zeros((self.numTests, self.numDiseases * (self.numDiseases - 1) // 2), dtype=int)
@@ -83,7 +83,10 @@ class IPInstance:
     # solution = self.model.solution.get_values(x)
     # print("Solution:", solution)
     # print("Objective value:", self.model.solution.get_objective_value())
-    return self.model.solution.get_objective_value()
+    return self.model.solution.get_objective_value(), self.model.solution.get_values(x)
+  
+  def branch_and_bound(self):
+     pass
 
   def toString(self):
     out = ""

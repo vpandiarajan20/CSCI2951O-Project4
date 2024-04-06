@@ -19,7 +19,7 @@ def main(filepath : str):
 	sol_dict ={
 		"Instance" : filename,
 		"Time" : str(watch.getElapsed()),
-		"Result" : f"{math.ceil(solver.objVal)}",
+		"Result" : f"{int(round(solver.objVal))}",
 		"Solution" : "OPT" if solver.objVal != None else "ERR"
 	}
 	print(json.dumps(sol_dict))	
