@@ -51,6 +51,6 @@ public class Main
 		System.out.println("{\"Instance\": \"" + filename +
 				"\", \"Time\": " + String.format("%.2f",watch.getTime()) +
 				", \"Result\": " + instance.intObjValue +
-				", \"Solution\": " + result + "}");
+				", \"Solution\": " + "\"" + result + "\"" + "}");
   }
 }
