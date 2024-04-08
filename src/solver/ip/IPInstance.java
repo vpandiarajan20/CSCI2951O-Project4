@@ -145,6 +145,19 @@ public class IPInstance implements Cloneable
         return maxIdx;
     }
 
+    public int distanceFromHalf(double[] arr) {
+        double minDistance = 1;
+        int maxIdx = -1;
+        for (int i = 0; i < arr.length; i++) {
+            double curDist = Math.abs(arr[i] - 0.5);
+            if (curDist < minDistance) {
+                minDistance = curDist;
+                maxIdx = i;
+            }
+        }
+        return maxIdx;
+    }
+
     // Function to calculate the objective value
     public double getObjectiveValue(double[] curSol) {
         double objValue = 0;

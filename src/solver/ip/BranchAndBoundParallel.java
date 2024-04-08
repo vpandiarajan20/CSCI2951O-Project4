@@ -47,7 +47,8 @@ public class BranchAndBoundParallel {
                     if (newVal > this.upperBound.get()) {
                         continue;
                     }
-                    int branchIdx = IPInstance.greatestFractionalIdx(currentNode.getSolution());
+                    // int branchIdx = IPInstance.greatestFractionalIdx(currentNode.getSolution());
+                    int branchIdx = IPInstance.distanceFromHalf(currentNode.getSolution());
 
                     if (branchIdx == -1) {
                         // System.out.println("Integer solution found: " + newVal);
