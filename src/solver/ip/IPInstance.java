@@ -146,7 +146,7 @@ public class IPInstance implements Cloneable
     }
 
     public int distanceFromHalf(double[] arr) {
-        double minDistance = 1;
+        double minDistance = 0.5;
         int maxIdx = -1;
         for (int i = 0; i < arr.length; i++) {
             double curDist = Math.abs(arr[i] - 0.5);

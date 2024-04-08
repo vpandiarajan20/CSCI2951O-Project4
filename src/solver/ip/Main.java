@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class Main
 {
-  public static final int NUM_THREADS = 6;  
+  public static final int NUM_THREADS = 4;  
   public static void main(String[] args)
   {
 		if(args.length == 0)
