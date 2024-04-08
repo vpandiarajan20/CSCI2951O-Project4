@@ -11,13 +11,8 @@ then
 fi
 	
 input=$1
+# export the solver libraries into the path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/local/projects/cplex/CPLEX_Studio221/cplex/bin/x86-64_linux
 
-# change this to point to your local installation
-# CHANGE it back to this value before submitting
-export DOCPLEX_COS_LOCATION=/local/projects/cplex/CPLEX_Studio2211
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/course/cs2951o/deps/python3.9/lib
-
-source p4_venv/bin/activate
-
-# run the solver
-python3.9 src/main.py $input
+# add the solver jar to the classpath and run
+java -cp /local/projects/cplex/CPLEX_Studio221/cplex/lib/cplex.jar:src solver.ip.Main $input
