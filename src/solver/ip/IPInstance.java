@@ -48,17 +48,17 @@ public class IPInstance implements Cloneable
         } catch (IloException e) {
             e.printStackTrace();
         }
-        this.objValue = getObjectiveValue(this.solution);
-        System.out.println("Solution: ");
-        for (int i = 0; i < numTests; i++) {
-            System.out.print(this.solution[i] + " ");
-        }
-        System.out.println();
-        try {
-            this.constraintMap = preComputeConstraints();
-        } catch (IloException e) {
-            e.printStackTrace();
-        }
+        // this.objValue = getObjectiveValue(this.solution);
+        // System.out.println("Solution: ");
+        // for (int i = 0; i < numTests; i++) {
+        //     System.out.print(this.solution[i] + " ");
+        // }
+        // System.out.println();
+        // try {
+        //     this.constraintMap = preComputeConstraints();
+        // } catch (IloException e) {
+        //     e.printStackTrace();
+        // }
         // this.intObjValue = (int)Math.round(branchAndBoundBest());
         // System.out.println("Objective value: " + this.intObjValue);
         }
