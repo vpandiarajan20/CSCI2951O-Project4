@@ -1,5 +1,6 @@
 package solver.ip;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.*;
 import java.util.concurrent.locks.*;
@@ -15,6 +16,7 @@ public class BranchAndBoundParallel {
     // private Lock lock = new ReentrantLock();
     private double[] costOfTest;
     private IPInstance IPInstance;
+    private final AtomicLong numThreadsInProgress;
 
 
     public BranchAndBoundParallel(int numTests, double objValue, double[] solution, double[] costOfTest, IPInstance IPInstance, ExecutorService executor) {
@@ -25,6 +27,7 @@ public class BranchAndBoundParallel {
         this.costOfTest = costOfTest;
         this.IPInstance = IPInstance;
         this.upperBound = new AtomicLong(Long.MAX_VALUE);
+        this.numThreadsInProgress = new AtomicLong(0);
     }
 
     public double branchAndBoundBest() throws InterruptedException, ExecutionException {
@@ -40,11 +43,22 @@ public class BranchAndBoundParallel {
         for (int i = 0; i < Main.NUM_THREADS; i++) {
             popTasks.add(() -> {
                 IPInstance my_ipInstance = this.IPInstance.clone();
-                while (!priorityQueue.isEmpty()) {
-                    BnBNode currentNode = priorityQueue.poll();
+                BnBNode currentNode;
+                // while (!priorityQueue.isEmpty() || this.numThreadsInProgress.get() > 0) {
+                do {
+                    // BnBNode currentNode = priorityQueue.poll(500, TimeUnit.MILLISECONDS);
+                    currentNode = priorityQueue.poll(500, TimeUnit.MILLISECONDS);
+                    // BnBNode currentNode = priorityQueue.poll();
+                    if (currentNode == null) {
+                        System.out.println("Thread " + Thread.currentThread().getId() + " ran into null node");
+                        break;
+                    }
+                    // System.out.println("Thread " + Thread.currentThread().getId() + " popped node with value: " + currentNode.getValue() + " and constraints: " + currentNode.getConstraints() + "pq size: " + priorityQueue.size());
+                    // this.numThreadsInProgress.incrementAndGet();
                     double newVal = currentNode.getValue();
 
                     if (newVal > this.upperBound.get()) {
+                        // this.numThreadsInProgress.decrementAndGet();
                         continue;
                     }
                     // int branchIdx = IPInstance.greatestFractionalIdx(currentNode.getSolution());
@@ -93,7 +107,9 @@ public class BranchAndBoundParallel {
                             priorityQueue.offer(new BnBNode(newObjective0, newSolution0, newConstraints0));
                         }
                     }
-                }
+                    // this.numThreadsInProgress.decrementAndGet();
+                } while (true);
+                System.out.println("Thread " + Thread.currentThread().getId() + " finished");
                 return null;
             });
         }
