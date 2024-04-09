@@ -47,7 +47,7 @@ public class BranchAndBoundParallel {
                 // while (!priorityQueue.isEmpty() || this.numThreadsInProgress.get() > 0) {
                 do {
                     // BnBNode currentNode = priorityQueue.poll(500, TimeUnit.MILLISECONDS);
-                    currentNode = priorityQueue.poll(500, TimeUnit.MILLISECONDS);
+                    currentNode = priorityQueue.poll(1000, TimeUnit.MILLISECONDS);
                     // BnBNode currentNode = priorityQueue.poll();
                     if (currentNode == null) {
                         System.out.println("Thread " + Thread.currentThread().getId() + " ran into null node");
